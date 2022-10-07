@@ -1,14 +1,14 @@
-const kdvUcreti = 0.18;
-const kargoUcreti = 15;
-const kargoBedavaUcret = 300;
+const taxRate = 0.18;
+const shippingPrice = 15;
+const shippingFreePrice = 200;
 window.addEventListener("load", () => {
-  localStorage.setItem("kdvUcreti", "kdv");
-  localStorage.setItem("kargoUcreti", "kargo");
-  localStorage.setItem("kargoBedavaUCret", "bedava");
+  localStorage.setItem("taxRate", taxRate);
+  localStorage.setItem("shippingPrice", shippingPrice);
+  localStorage.setItem("shippingFreePrice", shippingFreePrice);
 
-  sessionStorage.setItem("kdvUcreti", "kdv");
-  sessionStorage.setItem("kargoUcreti", "kargo");
-  sessionStorage.setItem("kargoBedavaUCret", "bedava");
+  sessionStorage.setItem("taxRate", taxRate);
+  sessionStorage.setItem("shippingPrice", shippingPrice);
+  sessionStorage.setItem("shippingFreePrice", shippingFreePrice);
 });
 
 const productsDiv = document.querySelector(".products");
@@ -16,28 +16,31 @@ productsDiv.addEventListener("click", (event) => {
   if (event.target.className == "fa-solid fa-minus") {
     if (event.target.parentElement.querySelector(".quantity").innerText > 1) {
       event.target.nextElementSibling.innerText--;
-      ürünFiyatıHesap(event.target);
+      calculateProductPrice(event.target);
+      calculateCartPrice(event.target);
     } else {
-      let x = confirm("Ürünü sepetten silmek istediğinize emin misiniz?");
-      if (x) {
+      if (confirm("Has been the product in your cart removed???")) {
         event.target.closest(".product").remove();
+        calculateCartPrice();
       } else {
-        alert("alışverişinize devam edebilirsiniz");
+        alert("You can continue your shopping");
       }
     }
   } else if (event.target.className == "fa-solid fa-plus") {
     event.target.previousElementSibling.innerText++;
-    ürünFiyatıHesap(event.target);
+    calculateProductPrice(event.target);
+    calculateCartPrice();
   } else if (event.target.classList.contains("remove-product")) {
     event.target.closest(".product").remove();
+    calculateCartPrice();
   }
 });
-const ürünFiyatıHesap = (button) => {
+const calculateProductPrice = (button) => {
   const productInfoDiv = button.parentElement.parentElement;
-  const ürünFiyatı = productInfoDiv.querySelector(
-    ".product-price strong"
-  ).innerText;
+  const price = productInfoDiv.querySelector(".product-price strong").innerText;
   const adet = productInfoDiv.querySelector(".quantity").innerText;
   const toplamÜrünFiyatı = productInfoDiv.querySelector(".product-line-price");
   toplamÜrünFiyatı.innerText = (ürünFiyatı * adet).toFixed(2);
 };
+
+const calculateCartPrice = () => {};
