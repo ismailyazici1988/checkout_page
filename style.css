@@ -436,14 +436,14 @@ i {
   border: 0;
   padding: 4px 8px;
   margin: 5px;
-  background-color: #c66;
-  color: #fff;
+  background-color: yellow;
+  color: blue;
   font-family: "HelveticaNeue-Medium", "Helvetica Neue Medium";
   font-size: 12px;
   border-radius: 3px;
 }
 .remove-product:hover {
-  background-color: #a44;
+  background-color: rgb(229, 236, 44);
 }
 .product-price strong::before {
   content: "₺";
